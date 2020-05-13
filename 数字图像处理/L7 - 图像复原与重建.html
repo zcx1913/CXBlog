@@ -1,0 +1,715 @@
+
+
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="CX Zhang">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.1.5">
+    
+    
+      
+        <title>L7 - 图像复原与重建 - CXBlog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.f6cf1dc9.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.85bb4ebe.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    <body dir="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#l7-" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="">
+    <a href=".." title="CXBlog" class="md-header-nav__button md-logo" aria-label="CXBlog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            CXBlog
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              L7 - 图像复原与重建
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="CXBlog" class="md-nav__button md-logo" aria-label="CXBlog">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CXBlog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../index.html" title="首页" class="md-nav__link">
+      首页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      折腾日志
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="折腾日志" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        折腾日志
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../%E6%8A%98%E8%85%BE%E6%97%A5%E5%BF%97/Mkdocs%20%E8%B0%83%E6%95%99%E5%8E%86%E7%A8%8B.html" title="Mkdocs 调教历程" class="md-nav__link">
+      Mkdocs 调教历程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../%E6%8A%98%E8%85%BE%E6%97%A5%E5%BF%97/%E5%9C%A8%20Github%20Pages%20%E4%B8%8A%E9%83%A8%E7%BD%B2%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2.html" title="在 Github Pages 上部署静态页面" class="md-nav__link">
+      在 Github Pages 上部署静态页面
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      数字图像处理
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="数字图像处理" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        数字图像处理
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="index.html" title="参考书目" class="md-nav__link">
+      参考书目
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="L1%20-%20%E7%BB%AA%E8%AE%BA.html" title="L1 - 绪论" class="md-nav__link">
+      L1 - 绪论
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="L2%20-%20%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%9F%BA%E7%A1%80.html" title="L2 - 数字图像处理基础" class="md-nav__link">
+      L2 - 数字图像处理基础
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="L3%20-%20%E7%81%B0%E5%BA%A6%E5%8F%98%E6%8D%A2%E5%92%8C%E7%A9%BA%E9%97%B4%E6%BB%A4%E6%B3%A2%20-%201.html" title="L3 - 灰度变换和空间滤波 - 1" class="md-nav__link">
+      L3 - 灰度变换和空间滤波 - 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="L4%20-%20%E7%81%B0%E5%BA%A6%E5%8F%98%E6%8D%A2%E4%B8%8E%E7%A9%BA%E9%97%B4%E6%BB%A4%E6%B3%A2%20-%202.html" title="L4 - 灰度变换与空间滤波 - 2" class="md-nav__link">
+      L4 - 灰度变换与空间滤波 - 2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="L5%20-%20%E9%A2%91%E7%8E%87%E5%9F%9F%E6%BB%A4%E6%B3%A2%20-%201.html" title="L5 - 频率域滤波 - 1" class="md-nav__link">
+      L5 - 频率域滤波 - 1
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="L6%20-%20%E9%A2%91%E7%8E%87%E5%9F%9F%E6%BB%A4%E6%B3%A2%20-%202.html" title="L6 - 频率域滤波 - 2" class="md-nav__link">
+      L6 - 频率域滤波 - 2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        L7 - 图像复原与重建
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="L7%20-%20%E5%9B%BE%E5%83%8F%E5%A4%8D%E5%8E%9F%E4%B8%8E%E9%87%8D%E5%BB%BA.html" title="L7 - 图像复原与重建" class="md-nav__link md-nav__link--active">
+      L7 - 图像复原与重建
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    退化/复原过程的模型
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    噪声模型
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    只存在噪声的复原——空间滤波
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    用频率域滤波消除周期噪声
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    逆滤波
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    最小均方误差(维纳)滤波
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    约束最小二乘方滤波
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    几何均值滤波器
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="L8%20-%20%E5%BD%A9%E8%89%B2%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86.html" title="L8 - 彩色图像处理" class="md-nav__link">
+      L8 - 彩色图像处理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="L9%20-%20%E5%B0%8F%E6%B3%A2%E5%92%8C%E5%A4%9A%E5%88%86%E8%BE%A8%E7%8E%87%E5%A4%84%E7%90%86.html" title="L9 - 小波和多分辨率处理" class="md-nav__link">
+      L9 - 小波和多分辨率处理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="%E7%BF%BB%E8%AF%91%E5%90%90%E6%A7%BD.html" title="翻译吐槽" class="md-nav__link">
+      翻译吐槽
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="%E8%80%83%E8%AF%95%E5%A4%A7%E7%BA%B2.html" title="考试大纲" class="md-nav__link">
+      考试大纲
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    退化/复原过程的模型
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    噪声模型
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    只存在噪声的复原——空间滤波
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    用频率域滤波消除周期噪声
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    逆滤波
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    最小均方误差(维纳)滤波
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    约束最小二乘方滤波
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    几何均值滤波器
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <h1 id="l7-">L7 - 图像复原与重建<a class="headerlink" href="#l7-" title="Permanent link">&para;</a></h1>
+<h2 id="_1">退化/复原过程的模型<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><span><span class="MathJax_Preview">\begin {cases} g(x,y)=h(x,y)\ast f(x,y)+\eta(x,y) &amp; [空间域模型] \\ G(u,v)=H(u,v)F(u,v)+N(u,v) &amp; [频率域表示]\end {cases}</span><script type="math/tex">\begin {cases} g(x,y)=h(x,y)\ast f(x,y)+\eta(x,y) & [空间域模型] \\ G(u,v)=H(u,v)F(u,v)+N(u,v) & [频率域表示]\end {cases}</script></span></p>
+<h2 id="_2">噪声模型<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>傅里叶谱是的噪声称为白噪声。</li>
+<li>高斯(正态)噪声、瑞利噪声、爱尔兰噪声、指数噪声、均匀噪声、椒盐噪声的PDF和直方图</li>
+<li>周期噪声（空间相关），可以用频率域滤波去除。</li>
+</ul>
+<h2 id="_3">只存在噪声的复原——空间滤波<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>当图像中唯一存在的退化是噪声时，退化模型可简化为：<br />
+<span><span class="MathJax_Preview">\begin {cases} g(x,y)=f(x,y)+\eta(x,y) &amp; [空间域模型] \\ G(u,v)=F(u,v)+N(u,v) &amp; [频率域表示]\end {cases}</span><script type="math/tex">\begin {cases} g(x,y)=f(x,y)+\eta(x,y) & [空间域模型] \\ G(u,v)=F(u,v)+N(u,v) & [频率域表示]\end {cases}</script></span></p>
+<ul>
+<li>空间域滤波器：均值滤波器、 统计排序滤波器、自适应滤波器<ul>
+<li>均值滤波器：算术均值滤波器、几何均值滤波器、谐波均值滤波器、逆谐波均值滤波器</li>
+<li>统计排序滤波器：中值滤波器、最大值/最小值滤波器、中点滤波器、修正的阿尔法均值滤波器</li>
+<li>自适应滤波器</li>
+</ul>
+</li>
+</ul>
+<h2 id="_4">用频率域滤波消除周期噪声<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>带阻滤波器、带通滤波器、陷波滤波器、最佳陷波滤波</li>
+</ul>
+<h2 id="_5">逆滤波<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>若已经构建出退化函数<span><span class="MathJax_Preview">H</span><script type="math/tex">H</script></span>，最简单的复原方法是直接逆滤波。
+    <span><span class="MathJax_Preview">\hat F(u,v)=\frac{G(u,v)}{H(u,v)}=F(u,v)+\frac{N(u,v)}{H(u,v)}</span><script type="math/tex">\hat F(u,v)=\frac{G(u,v)}{H(u,v)}=F(u,v)+\frac{N(u,v)}{H(u,v)}</script></span></li>
+<li>即使知道退化函数，也不能准确地复原未退化的图像，因为<span><span class="MathJax_Preview">N(u,v)</span><script type="math/tex">N(u,v)</script></span>未知。如果退化函数<span><span class="MathJax_Preview">H(u,v)</span><script type="math/tex">H(u,v)</script></span>是零或是非常小的值，则<span><span class="MathJax_Preview">N(u,v)/H(u,v)</span><script type="math/tex">N(u,v)/H(u,v)</script></span>很容易支配估计值<span><span class="MathJax_Preview">\hat F(u,v)</span><script type="math/tex">\hat F(u,v)</script></span>。故一般而言<strong>直接逆滤波的性能是较差的</strong>。</li>
+</ul>
+<h2 id="_6">最小均方误差(维纳)滤波<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p><span><span class="MathJax_Preview">\begin {aligned}\hat F(u,v) &amp; =\left [\frac{H^*(u,v)S_f(u,v)}{S_f(u,v)|H(u,v)|^2+S_\eta(u,v)}\right ]G(u,v) \\ &amp; =\left [\frac{H^*(u,v)}{|H(u,v)|^2+S_\eta(u,v)/S_f(u,v)}\right ]G(u,v) \\ &amp; =\left [\frac 1 {H(u,v)}\frac{|H(u,v)|^2}{|H(u,v)|^2+S_\eta(u,v)/S_f(u,v)}\right ]G(u,v)\end {aligned}</span><script type="math/tex">\begin {aligned}\hat F(u,v) & =\left [\frac{H^*(u,v)S_f(u,v)}{S_f(u,v)|H(u,v)|^2+S_\eta(u,v)}\right ]G(u,v) \\ & =\left [\frac{H^*(u,v)}{|H(u,v)|^2+S_\eta(u,v)/S_f(u,v)}\right ]G(u,v) \\ & =\left [\frac 1 {H(u,v)}\frac{|H(u,v)|^2}{|H(u,v)|^2+S_\eta(u,v)/S_f(u,v)}\right ]G(u,v)\end {aligned}</script></span>
+- 设计目标是找到未污染图像<span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span>的一个估计<span><span class="MathJax_Preview">\hat f</span><script type="math/tex">\hat f</script></span>，使它们之间的均方误差最小。
+- 均方误差的度量：<span><span class="MathJax_Preview">e^2=E[(f-\hat f)^2]</span><script type="math/tex">e^2=E[(f-\hat f)^2]</script></span>
+- 若噪声为零，则维纳滤波简化为逆滤波。
+- 维纳滤波的不足：<strong>未退化图像和噪声的功率谱必须是已知的</strong>。然而，功率谱比的常数估计<span><span class="MathJax_Preview">K</span><script type="math/tex">K</script></span>，并不总是一个合适的解。
+- 维纳滤波的优点：维纳滤波建立在最小化统计准则的基础上，因此在<strong>平均意义上维纳滤波是最优的</strong>。</p>
+<h2 id="_7">约束最小二乘方滤波<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p><span><span class="MathJax_Preview">\hat F(u,v)=\left[\frac{H^*(u,v)}{|H(u,v)|^2+\gamma|P(u,v)|^2}\right]G(u,v)</span><script type="math/tex">\hat F(u,v)=\left[\frac{H^*(u,v)}{|H(u,v)|^2+\gamma|P(u,v)|^2}\right]G(u,v)</script></span>
+- 同样需要人为确定参数<span><span class="MathJax_Preview">\gamma</span><script type="math/tex">\gamma</script></span></p>
+<h2 id="_8">几何均值滤波器<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="">
+        
+          <a href="L6%20-%20%E9%A2%91%E7%8E%87%E5%9F%9F%E6%BB%A4%E6%B3%A2%20-%202.html" title="L6 - 频率域滤波 - 2" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一页
+                </span>
+                L6 - 频率域滤波 - 2
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="L8%20-%20%E5%BD%A9%E8%89%B2%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86.html" title="L8 - 彩色图像处理" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一页
+                </span>
+                L8 - 彩色图像处理
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 - 2020 CX Zhang<br>所有内容采用<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.zh">知识共享署名 4.0 国际许可协议</a>进行许可。<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://zcx1913.github.io/CXBlog//CC-BY.png" /></a>
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.8caa27b7.min.js"></script>
+      <script src="../assets/javascripts/bundle.193efd2f.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "", "search.config.separator": "[\\uff0c\\u3002]+", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.37585f48.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,10 @@
+User-agent: *
+Disable: /
+Disable: /assets/
+Disable: /*assets/
+Disable: /*.pdf$
+Disable: /*.png$
+Disable: /*.ppt$
+Disable: /*.doc$
+Disable: /*.pptx$
+Disable: /*.docx$
