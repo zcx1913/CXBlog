@@ -610,19 +610,21 @@
 </ul>
 <h2 id="_5">逆滤波<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <ul>
-<li>若已经构建出退化函数<span><span class="MathJax_Preview">H</span><script type="math/tex">H</script></span>，最简单的复原方法是直接逆滤波。
-    <span><span class="MathJax_Preview">\hat F(u,v)=\frac{G(u,v)}{H(u,v)}=F(u,v)+\frac{N(u,v)}{H(u,v)}</span><script type="math/tex">\hat F(u,v)=\frac{G(u,v)}{H(u,v)}=F(u,v)+\frac{N(u,v)}{H(u,v)}</script></span></li>
+<li>若已经构建出退化函数<span><span class="MathJax_Preview">H</span><script type="math/tex">H</script></span>，最简单的复原方法是直接逆滤波。<br />
+<span><span class="MathJax_Preview">\hat F(u,v)=\frac{G(u,v)}{H(u,v)}=F(u,v)+\frac{N(u,v)}{H(u,v)}</span><script type="math/tex">\hat F(u,v)=\frac{G(u,v)}{H(u,v)}=F(u,v)+\frac{N(u,v)}{H(u,v)}</script></span>  </li>
 <li>即使知道退化函数，也不能准确地复原未退化的图像，因为<span><span class="MathJax_Preview">N(u,v)</span><script type="math/tex">N(u,v)</script></span>未知。如果退化函数<span><span class="MathJax_Preview">H(u,v)</span><script type="math/tex">H(u,v)</script></span>是零或是非常小的值，则<span><span class="MathJax_Preview">N(u,v)/H(u,v)</span><script type="math/tex">N(u,v)/H(u,v)</script></span>很容易支配估计值<span><span class="MathJax_Preview">\hat F(u,v)</span><script type="math/tex">\hat F(u,v)</script></span>。故一般而言<strong>直接逆滤波的性能是较差的</strong>。</li>
 </ul>
 <h2 id="_6">最小均方误差(维纳)滤波<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
-<p><span><span class="MathJax_Preview">\begin {aligned}\hat F(u,v) &amp; =\left [\frac{H^*(u,v)S_f(u,v)}{S_f(u,v)|H(u,v)|^2+S_\eta(u,v)}\right ]G(u,v) \\ &amp; =\left [\frac{H^*(u,v)}{|H(u,v)|^2+S_\eta(u,v)/S_f(u,v)}\right ]G(u,v) \\ &amp; =\left [\frac 1 {H(u,v)}\frac{|H(u,v)|^2}{|H(u,v)|^2+S_\eta(u,v)/S_f(u,v)}\right ]G(u,v)\end {aligned}</span><script type="math/tex">\begin {aligned}\hat F(u,v) & =\left [\frac{H^*(u,v)S_f(u,v)}{S_f(u,v)|H(u,v)|^2+S_\eta(u,v)}\right ]G(u,v) \\ & =\left [\frac{H^*(u,v)}{|H(u,v)|^2+S_\eta(u,v)/S_f(u,v)}\right ]G(u,v) \\ & =\left [\frac 1 {H(u,v)}\frac{|H(u,v)|^2}{|H(u,v)|^2+S_\eta(u,v)/S_f(u,v)}\right ]G(u,v)\end {aligned}</script></span>
-- 设计目标是找到未污染图像<span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span>的一个估计<span><span class="MathJax_Preview">\hat f</span><script type="math/tex">\hat f</script></span>，使它们之间的均方误差最小。
-- 均方误差的度量：<span><span class="MathJax_Preview">e^2=E[(f-\hat f)^2]</span><script type="math/tex">e^2=E[(f-\hat f)^2]</script></span>
-- 若噪声为零，则维纳滤波简化为逆滤波。
-- 维纳滤波的不足：<strong>未退化图像和噪声的功率谱必须是已知的</strong>。然而，功率谱比的常数估计<span><span class="MathJax_Preview">K</span><script type="math/tex">K</script></span>，并不总是一个合适的解。
-- 维纳滤波的优点：维纳滤波建立在最小化统计准则的基础上，因此在<strong>平均意义上维纳滤波是最优的</strong>。</p>
+<p><span><span class="MathJax_Preview">\begin {aligned}\hat F(u,v) &amp; =\left [\frac{H^*(u,v)S_f(u,v)}{S_f(u,v)|H(u,v)|^2+S_\eta(u,v)}\right ]G(u,v) \\ &amp; =\left [\frac{H^*(u,v)}{|H(u,v)|^2+S_\eta(u,v)/S_f(u,v)}\right ]G(u,v) \\ &amp; =\left [\frac 1 {H(u,v)}\frac{|H(u,v)|^2}{|H(u,v)|^2+S_\eta(u,v)/S_f(u,v)}\right ]G(u,v)\end {aligned}</span><script type="math/tex">\begin {aligned}\hat F(u,v) & =\left [\frac{H^*(u,v)S_f(u,v)}{S_f(u,v)|H(u,v)|^2+S_\eta(u,v)}\right ]G(u,v) \\ & =\left [\frac{H^*(u,v)}{|H(u,v)|^2+S_\eta(u,v)/S_f(u,v)}\right ]G(u,v) \\ & =\left [\frac 1 {H(u,v)}\frac{|H(u,v)|^2}{|H(u,v)|^2+S_\eta(u,v)/S_f(u,v)}\right ]G(u,v)\end {aligned}</script></span></p>
+<ul>
+<li>设计目标是找到未污染图像<span><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span>的一个估计<span><span class="MathJax_Preview">\hat f</span><script type="math/tex">\hat f</script></span>，使它们之间的均方误差最小。</li>
+<li>均方误差的度量：<span><span class="MathJax_Preview">e^2=E[(f-\hat f)^2]</span><script type="math/tex">e^2=E[(f-\hat f)^2]</script></span></li>
+<li>若噪声为零，则维纳滤波简化为逆滤波。</li>
+<li>维纳滤波的不足：<strong>未退化图像和噪声的功率谱必须是已知的</strong>。然而，功率谱比的常数估计<span><span class="MathJax_Preview">K</span><script type="math/tex">K</script></span>，并不总是一个合适的解。</li>
+<li>维纳滤波的优点：维纳滤波建立在最小化统计准则的基础上，因此在<strong>平均意义上维纳滤波是最优的</strong>。</li>
+</ul>
 <h2 id="_7">约束最小二乘方滤波<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
-<p><span><span class="MathJax_Preview">\hat F(u,v)=\left[\frac{H^*(u,v)}{|H(u,v)|^2+\gamma|P(u,v)|^2}\right]G(u,v)</span><script type="math/tex">\hat F(u,v)=\left[\frac{H^*(u,v)}{|H(u,v)|^2+\gamma|P(u,v)|^2}\right]G(u,v)</script></span>
+<p><span><span class="MathJax_Preview">\hat F(u,v)=\left[\frac{H^*(u,v)}{|H(u,v)|^2+\gamma|P(u,v)|^2}\right]G(u,v)</span><script type="math/tex">\hat F(u,v)=\left[\frac{H^*(u,v)}{|H(u,v)|^2+\gamma|P(u,v)|^2}\right]G(u,v)</script></span><br />
 - 同样需要人为确定参数<span><span class="MathJax_Preview">\gamma</span><script type="math/tex">\gamma</script></span></p>
 <h2 id="_8">几何均值滤波器<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
                 
