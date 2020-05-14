@@ -1,5 +1,4 @@
 User-agent: *
-Disable: /
 Disable: /assets/
 Disable: /*assets/
 Disable: /*.pdf$
